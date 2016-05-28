@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lavallette", "Lavallette\Lavallette.csproj", "{EF99A591-40E5-4973-8E1B-A89D1010F596}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lavallette.NUnit", "Lavallette.NUnit\Lavallette.NUnit.csproj", "{067456C0-086C-46A8-B37F-1405717B7BFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.DataAccess", "Test.DataAccess\Test.DataAccess.csproj", "{484B1A09-9869-46E6-BB12-630EEEB9FB27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lavallette.NUnit.Tests", "Lavallette.NUnit.Tests\Lavallette.NUnit.Tests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +19,14 @@ Global
 		{EF99A591-40E5-4973-8E1B-A89D1010F596}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF99A591-40E5-4973-8E1B-A89D1010F596}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF99A591-40E5-4973-8E1B-A89D1010F596}.Release|Any CPU.Build.0 = Release|Any CPU
-		{067456C0-086C-46A8-B37F-1405717B7BFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{067456C0-086C-46A8-B37F-1405717B7BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{067456C0-086C-46A8-B37F-1405717B7BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{067456C0-086C-46A8-B37F-1405717B7BFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{484B1A09-9869-46E6-BB12-630EEEB9FB27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{484B1A09-9869-46E6-BB12-630EEEB9FB27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{484B1A09-9869-46E6-BB12-630EEEB9FB27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{484B1A09-9869-46E6-BB12-630EEEB9FB27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
