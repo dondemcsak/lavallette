@@ -14,13 +14,23 @@ namespace Lavallette
         public TargetAssembly(Assembly assembly)
         {
             this.currentAssembly = assembly;
+            this.ReferencedAssemblies = this.currentAssembly.GetReferencedAssemblies();
         }
 
-        public AssemblyName[] RefereenceAssemblyNames {
-            get
-            {
-                return this.currentAssembly.GetReferencedAssemblies();
+        public AssemblyName[] ReferencedAssemblies { get; private set; }
+
+        public bool Uses(AssemblyName assemblyName)
+        {
+
+            foreach (AssemblyName refAssembly in this.ReferencedAssemblies) {
+                if(refAssembly.Name == assemblyName.Name)
+                {
+                    return true;
+                }
             }
+
+            return false;
         }
+
     }
 }

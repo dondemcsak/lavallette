@@ -7,29 +7,32 @@ using System.Threading.Tasks;
 using System.Reflection;
 using Lavallette;
 
+
 namespace Lavallette.NUnit.Tests
 {
     [TestFixture]
-    public class MetaDataTests
+    public class ReferencedAssembliesTests
     {
-        Assembly assembly;
+        TargetAssembly tartgetAssembly;
 
         [OneTimeSetUp]
         public void TestSetup()
         {
-            Console.Write(Assembly.GetExecutingAssembly().Location);
             string currentPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            assembly = Assembly.LoadFrom(currentPath + @"\Test.DataAccess.dll");
+            var assembly = Assembly.LoadFrom(currentPath + @"\Test.DataAccess.dll");
             Assert.IsNotNull(assembly);
+            tartgetAssembly = new TargetAssembly(assembly);
+            Assert.IsNotNull(tartgetAssembly);
+
         }
 
         [Test]
-        public void CanGetReferencedAssemblyNames()
+        public void UsesSystemDataTest()
         {
-            var tartgetAssembly = new TargetAssembly(assembly);
             Assert.IsNotNull(tartgetAssembly);
-            Assert.True(tartgetAssembly.ReferencedAssemblies.Count() > 0);
+            Assert.True(tartgetAssembly.Uses(new AssemblyName("System.Data")));
 
         }
+
     }
 }
