@@ -23,7 +23,7 @@ namespace Lavallette
         {
 
             foreach (AssemblyName refAssembly in this.ReferencedAssemblies) {
-                if(refAssembly.Name == assemblyName.Name)
+                if(AssemblyName.ReferenceMatchesDefinition(refAssembly, assemblyName))
                 {
                     return true;
                 }
