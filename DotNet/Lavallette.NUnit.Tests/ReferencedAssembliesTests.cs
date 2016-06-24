@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using Lavallette;
+using Mono.Cecil;
+
 
 
 namespace Lavallette.NUnit.Tests
@@ -32,6 +34,12 @@ namespace Lavallette.NUnit.Tests
             Assert.IsNotNull(tartgetAssembly);
             Assert.True(tartgetAssembly.Uses(new AssemblyName("System.Data")));
 
+        }
+
+        [Test]
+        public void CanLoadModuleDefintion()
+        {
+            Assert.IsNotNull(tartgetAssembly.ModuleDefinition);
         }
 
     }
