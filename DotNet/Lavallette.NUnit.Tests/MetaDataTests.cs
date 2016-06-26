@@ -12,24 +12,32 @@ namespace Lavallette.NUnit.Tests
     [TestFixture]
     public class MetaDataTests
     {
-        Assembly assembly;
+        TargetAssembly tartgetAssembly;
 
         [OneTimeSetUp]
         public void TestSetup()
         {
             Console.Write(Assembly.GetExecutingAssembly().Location);
             string currentPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            assembly = Assembly.LoadFrom(currentPath + @"\Test.DataAccess.dll");
+            var assembly = Assembly.LoadFrom(currentPath + @"\Test.DataAccess.dll");
             Assert.IsNotNull(assembly);
+            this.tartgetAssembly = new TargetAssembly(assembly);
         }
 
         [Test]
         public void CanGetReferencedAssemblyNames()
         {
-            var tartgetAssembly = new TargetAssembly(assembly);
-            Assert.IsNotNull(tartgetAssembly);
-            Assert.True(tartgetAssembly.ReferencedAssemblies.Count() > 0);
+            
+            Assert.IsNotNull(this.tartgetAssembly);
+            Assert.True(this.tartgetAssembly.ReferencedAssemblies.Count() > 0);
 
         }
+
+        [Test]
+        public void CanLoadModuleDefintion()
+        {
+            Assert.IsNotNull(this.tartgetAssembly.ModuleDefinition);
+        }
+
     }
 }

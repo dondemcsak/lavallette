@@ -35,12 +35,5 @@ namespace Lavallette.NUnit.Tests
             Assert.True(tartgetAssembly.Uses(new AssemblyName("System.Data")));
 
         }
-
-        [Test]
-        public void CanLoadModuleDefintion()
-        {
-            Assert.IsNotNull(tartgetAssembly.ModuleDefinition);
-        }
-
     }
 }
