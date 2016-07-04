@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
+﻿using System.Reflection;
 using Mono.Cecil;
 
 namespace Lavallette
 {
     public class TargetAssembly
     {
-        Assembly currentAssembly;
+        readonly Assembly currentAssembly;
         ModuleDefinition moduleDefinition;
 
         public TargetAssembly(Assembly assembly)
@@ -19,19 +14,10 @@ namespace Lavallette
             this.ReferencedAssemblies = this.currentAssembly.GetReferencedAssemblies();
         }
 
-        public ModuleDefinition ModuleDefinition
-        {
-            get {
-                if (moduleDefinition == null)
-                {
-                    moduleDefinition =  ModuleDefinition.ReadModule(this.currentAssembly.Location);
-                }
-                return moduleDefinition;
-            }
+        public ModuleDefinition ModuleDefinition => moduleDefinition ??
+                                                    (moduleDefinition = ModuleDefinition.ReadModule(this.currentAssembly.Location));
 
-        }
-
-        public AssemblyName[] ReferencedAssemblies { get; private set; }
+        public AssemblyName[] ReferencedAssemblies { get; }
 
         public bool Uses(AssemblyName assemblyName)
         {
