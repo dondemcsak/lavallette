@@ -7,6 +7,11 @@ namespace Lavallette
     {
         readonly Assembly currentAssembly;
         ModuleDefinition moduleDefinition;
+        static readonly LavalletteAssemblyResolver Resolver = new LavalletteAssemblyResolver();
+        ReaderParameters assemblyReaderParameters = new ReaderParameters
+        {
+            AssemblyResolver = Resolver
+        };
 
         public TargetAssembly(Assembly assembly)
         {
@@ -15,7 +20,7 @@ namespace Lavallette
         }
 
         public ModuleDefinition ModuleDefinition => moduleDefinition ??
-                                                    (moduleDefinition = ModuleDefinition.ReadModule(this.currentAssembly.Location));
+                                                    (moduleDefinition = ModuleDefinition.ReadModule(this.currentAssembly.Location,this.assemblyReaderParameters));
 
         public AssemblyName[] ReferencedAssemblies { get; }
 

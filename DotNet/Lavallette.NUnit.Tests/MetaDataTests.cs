@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Mono.Cecil.Cil;
 
 namespace Lavallette.NUnit.Tests
 {
@@ -33,6 +34,24 @@ namespace Lavallette.NUnit.Tests
         public void CanLoadModuleDefintion()
         {
             Assert.IsNotNull(this.tartgetAssembly.ModuleDefinition);
+
+            foreach (var type in this.tartgetAssembly.ModuleDefinition.Types)
+            {
+                foreach (var method in type.Methods)
+                {
+                    var resolvedMethod = method.Resolve();
+                    foreach (var instruction in resolvedMethod.Body.Instructions)
+                    {
+                        if (instruction.OpCode == OpCodes.Callvirt)
+                        {
+
+                            Console.WriteLine(resolvedMethod.ToString());
+                        }
+                    }
+                }
+            }
+            
+            
         }
 
     }
