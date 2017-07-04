@@ -1,5 +1,8 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using Mono.Cecil;
+using Mono.Cecil.Cil;
+using Mono.Cecil.Rocks;
 
 namespace Lavallette
 {
@@ -37,5 +40,46 @@ namespace Lavallette
             return false;
         }
 
+        public bool Uses(MethodInfo info)
+        {
+            if (info == null)
+            {
+                throw new NullReferenceException("MethodInfo is Null");
+            }
+
+            if (info.DeclaringType == null) return false;
+            foreach (var type in this.ModuleDefinition.Types)
+            {
+                foreach (var method in type.Methods)
+                {
+                    var resolvedMethod = method.Resolve();
+                    resolvedMethod.Body.SimplifyMacros();
+                    foreach (var instruction in resolvedMethod.Body.Instructions)
+                    {
+                        if (instruction.OpCode == OpCodes.Callvirt)
+                        {
+                            MethodReference reference = (MethodReference) instruction.Operand;
+                            if (reference != null)
+                            {
+                                if (instruction.Previous.OpCode == OpCodes.Ldarg)
+                                {
+                                    var parameterDef = (ParameterDefinition) instruction.Previous.Operand;
+                                    if (parameterDef != null)
+                                    {
+                                        if (parameterDef.ParameterType.Name == info.DeclaringType.Name)
+                                        {
+                                            if (reference.Name == info.Name)
+                                                return true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+        
     }
 }

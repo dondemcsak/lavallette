@@ -2,7 +2,9 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
+using Mono.Cecil.Rocks;
 
 namespace Lavallette.NUnit.Tests
 {
@@ -40,10 +42,25 @@ namespace Lavallette.NUnit.Tests
                 foreach (var method in type.Methods)
                 {
                     var resolvedMethod = method.Resolve();
+                    resolvedMethod.Body.SimplifyMacros();
                     foreach (var instruction in resolvedMethod.Body.Instructions)
                     {
                         if (instruction.OpCode == OpCodes.Callvirt)
                         {
+                            Console.WriteLine(instruction.Operand.ToString());
+                            MethodReference reference = (MethodReference) instruction.Operand;
+                            if (reference != null)
+                            {
+                                if (instruction.Previous.OpCode == OpCodes.Ldarg)
+                                {
+                                    var parameterDef = (ParameterDefinition) instruction.Previous.Operand;
+                                    if (parameterDef != null)
+                                    {
+                                        Console.WriteLine(parameterDef.ParameterType.ToString()+"::"+reference.Name);
+                                    }
+                                }
+                                Console.WriteLine(reference.DeclaringType.ToString()+"::"+reference.Name);
+                            }
 
                             Console.WriteLine(resolvedMethod.ToString());
                         }

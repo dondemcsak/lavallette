@@ -54,6 +54,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DslTests.cs" />
     <Compile Include="MetaDataTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReferencedAssembliesTests.cs" />
