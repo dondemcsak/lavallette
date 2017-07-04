@@ -24,6 +24,18 @@ namespace Lavallette.NUnit.Tests
         }
 
         [Test]
+        public void CanFindSqlConnectionUses()
+        {
+            var referencedAssembly = Assembly.Load(new AssemblyName("System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"));
+            var referencedType = referencedAssembly.GetType("System.Data.SqlClient.SqlConnection");
+
+            Assert.IsNotNull(this.tartgetAssembly);
+
+            Assert.IsTrue(this.tartgetAssembly.Uses(referencedType));
+
+        }
+
+        [Test]
         public void CanFindSqlConnectionOpenUses()
         {
             var referencedAssembly = Assembly.Load(new AssemblyName("System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"));

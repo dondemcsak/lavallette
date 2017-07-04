@@ -8,7 +8,15 @@ namespace Test.DataAccess
         public void OpenConnection(SqlConnection connection)
         {
             if (connection == null) throw new ArgumentNullException(nameof(connection));
-            connection.Open();
+            try
+            {
+                connection.Open();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

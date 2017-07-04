@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
@@ -40,12 +41,25 @@ namespace Lavallette
             return false;
         }
 
+        public bool Uses(Type type)
+        {
+            if(type == null) throw new ArgumentNullException(nameof(type));
+            foreach (var moduleType in this.ModuleDefinition.Types)
+            {
+                if (moduleType.Methods.SelectMany(method => method.Parameters).Any(
+                    parameter => parameter.ParameterType.Namespace == type.Namespace &&
+                    parameter.ParameterType.Name == type.Name))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public bool Uses(MethodInfo info)
         {
-            if (info == null)
-            {
-                throw new NullReferenceException("MethodInfo is Null");
-            }
+            if (info == null) throw new ArgumentNullException(nameof(info));
 
             if (info.DeclaringType == null) return false;
             foreach (var type in this.ModuleDefinition.Types)
